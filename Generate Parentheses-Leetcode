@@ -1,0 +1,19 @@
+class Solution {
+    vector<string> ans;
+public:
+    vector<string> generateParenthesis(int n) {
+        solve(n, 0, 0, "");
+        return ans;
+    }
+    void solve(int n, int o, int c, string str) {
+        if(o == n && c == n) {
+            ans.push_back(str);
+            return;
+        }
+        if(o > n || c > n || c > o) {
+            return;
+        }
+        solve(n, o + 1, c, str + "(");
+        solve(n, o, c + 1, str + ")");
+    }
+};
