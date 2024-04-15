@@ -1,0 +1,23 @@
+class Solution {
+    vector<vector<int>> ans;
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> stack;
+        solve(nums,0,stack);
+        return ans;
+    }
+    void solve(vector<int> &arr,int index,vector<int> &stack){
+          if(index==arr.size()){
+              ans.push_back(stack);
+              return;
+          }
+          //TAKE
+          stack.push_back(arr[index]);
+          solve(arr,index+1,stack);
+          stack.pop_back();
+
+          //skip
+          solve(arr,index+1,stack);
+
+    }
+};
