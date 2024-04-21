@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int total(TreeNode* root, int& Sum){
+        if(root == NULL){
+            return 0;
+        }
+        int curr = root->val;
+        int l = total(root->left, Sum);
+        int r = total(root->right, Sum);     
+        int currSum = max(curr, max(curr + l, curr + r));
+        currSum = max(currSum, curr + l + r);      
+        if (currSum > Sum) {
+            Sum = currSum;
+        }       
+        return max(curr, max(curr + l, curr + r));
+    }    
+public:
+    int maxPathSum(TreeNode* root) {
+        int Sum = root->val; 
+        total(root, Sum);
+        return Sum;
+    }
+};
