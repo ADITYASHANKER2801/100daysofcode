@@ -1,0 +1,19 @@
+class Solution {
+    private:
+    int helper(TreeNode* node,int sum){
+        if(node==NULL){
+            return 0;
+        }
+        sum=sum*10+node->val;
+        if(node->left==NULL&&node->right==NULL){
+            return sum;
+        }
+        int lsum=helper(node->left, sum);
+        int rsum=helper(node->right, sum);
+        return lsum+rsum;
+    }
+public:
+    int sumNumbers(TreeNode* root) {
+        return helper(root,0);
+    }
+};
