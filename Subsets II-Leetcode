@@ -1,0 +1,23 @@
+class Solution {
+    vector<vector<int>> ans;
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<int> stack;
+        sort(nums.begin(), nums.end()); 
+        solve(nums, 0, stack);
+        return ans;
+    } 
+    void solve(vector<int>& arr, int index, vector<int>& stack) {
+        if (index == arr.size()) {
+            ans.push_back(stack);
+            return;
+        }
+        stack.push_back(arr[index]);
+        solve(arr, index + 1, stack);
+        stack.pop_back();
+        
+        while (index + 1 < arr.size() && arr[index] == arr[index + 1])
+            ++index;    
+        solve(arr, index + 1, stack);
+    }
+};
