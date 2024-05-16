@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int left = solve(nums, target, true);
+        int right = solve(nums, target, false);
+        return {right,left};
+    } 
+private:
+    int solve(vector<int>& nums, int target, bool isLeft) {
+        int start = 0;
+        int end = nums.size() - 1;
+        int index = -1; 
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] < target || (isLeft && nums[mid] == target)) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+            
+            if (nums[mid] == target) {
+                index = mid;
+            }
+        }        
+        if (isLeft) {
+            if (index == -1 || nums[index] != target) {
+                return -1;
+            }
+        } else {
+            if (index == -1 || nums[index] != target) {
+                return -1;
+            }
+        }
+        return index;
+    }
+};
