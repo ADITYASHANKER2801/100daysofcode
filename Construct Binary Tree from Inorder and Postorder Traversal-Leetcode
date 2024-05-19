@@ -1,0 +1,23 @@
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        int postind = postorder.size() - 1;
+        return Helper(inorder, postorder, 0, postind, 0, postind);
+    }
+
+    TreeNode* Helper(vector<int>& inorder, vector<int>& postorder, int inst, int inend, int postst, int postend) {
+        if (inst > inend || postst > postend) return nullptr;
+        TreeNode* root = new TreeNode(postorder[postend]);
+        int inind;
+        for (int i = inst; i <= inend; ++i) {
+            if (inorder[i] == root->val) {
+                inind = i;
+                break;
+            }
+        }
+        int lsize = inind - inst;
+        root->left = Helper(inorder, postorder, inst, inind - 1, postst, postst + lsize - 1);
+        root->right = Helper(inorder, postorder, inind + 1, inend, postst + lsize, postend - 1);
+        return root;
+    }
+};
