@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool containsNearbyAlmostDuplicate(vector<int>& v, int index_diff, int value_diff) {
+    vector<pair<int, int>> ans;
+    for (int i = 0; i < v.size(); i++)
+    {
+        ans.push_back({v[i], i});
+    }
+    sort(ans.begin(), ans.end());
+    for (int i = 0; i < ans.size() - 1; i++)
+    {
+        for (int j = i + 1; j < ans.size(); j++)
+        {
+            int id = abs(ans[j].second - ans[i].second);
+            int vd = abs(ans[j].first - ans[i].first);
+            if (id <= index_diff && vd <= value_diff)
+            {
+                return true;
+            }
+            if (vd >= value_diff)
+                break;
+        }
+    }
+    return false;
+    }
+};
