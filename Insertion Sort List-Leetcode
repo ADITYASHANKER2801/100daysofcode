@@ -1,0 +1,24 @@
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) {
+            return head;
+        }
+
+        vector<int> ans;
+        ListNode* temp = head;
+        while (temp != nullptr) {
+            ans.push_back(temp->val);
+            temp = temp->next;
+        }
+
+        sort(ans.begin(), ans.end());
+        temp = head;
+        for (int val : ans) {
+            temp->val = val;
+            temp = temp->next;
+        }
+
+        return head;
+    }
+};
