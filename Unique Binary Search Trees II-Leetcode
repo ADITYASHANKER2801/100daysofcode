@@ -1,0 +1,23 @@
+class Solution {
+public:
+
+    vector<TreeNode*> generateTrees(int end, int start = 1) {
+        vector<TreeNode*> ans;  
+        if (start > end) {
+            return {nullptr};
+        }
+        for (int i = start; i <= end; i++) {
+            vector<TreeNode*> leftTrees = generateTrees(i - 1, start);
+            vector<TreeNode*> rightTrees = generateTrees(end, i + 1);
+
+            for (int l = 0; l < leftTrees.size(); l++) {
+                TreeNode* left = leftTrees[l];
+                for (int r = 0; r < rightTrees.size(); r++) {
+                    TreeNode* right = rightTrees[r];
+                    ans.push_back(new TreeNode(i, left, right));
+                }
+            }
+        }
+        return ans;
+    }
+};
