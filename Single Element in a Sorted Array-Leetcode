@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+        if(nums.size() == 1){
+            return nums[0];
+        }
+        int l = 0;
+        int r = nums.size() - 1;
+        int mid;
+        int num;
+        while(l < r) {
+            mid = l + (r - l) / 2;
+            if(mid % 2 == 0) {
+                num = mid + 1;
+            } else {
+                num = mid - 1;
+            }
+            if(nums[mid] == nums[num]) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        return nums[l];
+    }
+};
