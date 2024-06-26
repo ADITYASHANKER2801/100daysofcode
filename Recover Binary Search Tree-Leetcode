@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<TreeNode*> v;
+    void inOrder(TreeNode *root) {
+        if (root) {
+            inOrder(root->left);
+            v.push_back(root);
+            inOrder(root->right);
+        }
+    }
+    void sort(vector<TreeNode*>& v) {
+        int n = v.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (v[j]->val > v[j + 1]->val) {
+                    swap(v[j]->val, v[j + 1]->val);
+                }
+            }
+        }
+    }
+    void recoverTree(TreeNode* root) {
+        inOrder(root);
+        sort(v);
+    }
+};
