@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void solve(TreeNode* root, int targetSum, int& count, vector<long long>& ans) {
+        if (root == nullptr) {
+            return;
+        }
+        ans.push_back(root->val);
+        long long sum = 0;
+        for (int i = ans.size() - 1; i >= 0; i--) {
+            sum += ans[i];
+            if (sum == targetSum) {
+                count++;
+            }
+        }
+        solve(root->left, targetSum, count, ans);
+        solve(root->right, targetSum, count, ans);
+        ans.pop_back();
+    }
+
+    int pathSum(TreeNode* root, int targetSum) {
+        vector<long long> ans;
+        int count = 0;
+        solve(root, targetSum, count, ans);
+        return count;
+    }
+};
